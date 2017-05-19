@@ -1,0 +1,811 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>gRPC</title>
+
+    <meta name="description" content="Presentation of the gRPC framework">
+    <meta name="author" content="Andy Philipp">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="apple-touch-icon" href="http://www.grpc.io/favicons/apple-touch-icon.png" sizes="180x180">
+    <link rel="icon" type="image/png" href="http://www.grpc.io/favicons/android-chrome-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="http://www.grpc.io/favicons/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="http://www.grpc.io/favicons/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="http://www.grpc.io/favicons/manifest.json">
+    <link rel="mask-icon" href="http://www.grpc.io/favicons/safari-pinned-tab.svg" color="#2DA6B0">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="http://www.grpc.io/favicons/mstile-150x150.png">
+
+    <link rel="stylesheet" href="reveal/css/reveal.css">
+    <link rel="stylesheet" href="reveal/css/theme/black.css" id="theme">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="reveal/lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'reveal/css/print/pdf.css' : 'reveal/css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+<div class="reveal">
+
+    <!-- Any section element inside of this container is displayed as a slide -->
+    <div class="slides">
+        <section data-background="http://www.grpc.io/img/hero-bg.png">
+            <h1>
+                <img src="http://www.grpc.io/img/grpc_inverse.svg" style="padding: 0.3em;">
+            </h1>
+            <h5>A high performance, universal RPC framework</h5>
+            <p>Why our SOA replaces JSON/REST with gRPC.</p>
+            <p>
+                <small>Andy Philipp</small>
+            </p>
+            <aside class="notes">
+                <ul>
+                    <li>gRPC is based on two underlying concepts, so I will go through those first.</li>
+                </ul>
+            </aside>
+        </section>
+        <section>
+            <h2>Example code</h2>
+            <p>Slides and example code is available on Github:</p>
+            <p><big><a href="http://www.github.com/andyphilipp/grpc-by-example.git">github.com/andyphilipp/grpc-by-example.git</a></big>
+            </p>
+        </section>
+        <!-- Example of nested vertical slides -->
+        <section>
+            <section>
+                <h2>HTTP 2.0</h2>
+                <aside class="notes">
+                    <ul>
+                        <li>The first underlying concept of gRPC is HTTP2</li>
+                    </ul>
+                </aside>
+            </section>
+
+            <section>
+                <h2>History</h2>
+                <ul>
+                    <li class="fragment">HTTP/1.1 - 1999</li>
+                    <li class="fragment">SPDY - ~2010</li>
+                    <li class="fragment">HTTP2 - 2015</li>
+                </ul>
+                <aside class="notes">
+                    <ul>
+                        <li>The original HTTP came with Tim Berners-Lee's Word Wide Web in 1989</li>
+                        <li>Last Revision is HTTP1.1</li>
+                        <li>Google introduced SPDY</li>
+                        <li>SPDY formed the basis for the HTTP2 standard</li>
+                        <li>NGINX moved from SPDY to HTTP2 in 2015</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h2>HTTP2 Highlights</h2>
+                <ul>
+                    <li class="fragment">Binary</li>
+                    <li class="fragment">Multiplexing</li>
+                    <li class="fragment">Flow Control</li>
+                    <li class="fragment">Header Compression</li>
+                    <li class="fragment">Bi-Directional Streams</li>
+                </ul>
+                <aside class="notes">
+                    <ul>
+                        <li>Binary format, in contrary to HTTP1.X's Text format.</li>
+                        <li>Multiplexing, multiple data streams over a single TCP connection.</li>
+                        <li>Multiplexing introduces prioritation needs, to avoid contention of the tcp connection,
+                            HTTP2s Flow control handles this.
+                        </li>
+                        <li>While the payload in HTTP can be compressed the header can not, HTTP2 provides header
+                            compression.
+                        </li>
+                        <li>Bi-directional streams, servers can push messages to the client, as with WebSockets</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h2>RFC's</h2>
+                <p>Hypertext Transfer Protocol version 2 - <a
+                        href="https://httpwg.github.io/specs/rfc7540.html">RFC7540</a></p>
+                <p>HPACK - Header Compression for HTTP/2 - <a
+                        href="https://httpwg.github.io/specs/rfc7541.html">RFC7541</a></p>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h2>Protocol Buffers</h2>
+                <aside class="notes">
+                    <p>The second underlying concept of gRPC is protocol buffers.</p>
+                    <p>Protocol buffers is a serialization format, like XML and JSON.</p>
+                    <p>Flexible, efficient, automated mechanism for serializing structured data.</p>
+                </aside>
+            </section>
+            <section>
+                <h2>Protbuf (vs JSON)</h2>
+                <ul>
+                    <li class="fragment">Binary (vs Text Based)</li>
+                    <li class="fragment">Compressed (vs Human Readable)</li>
+                    <li class="fragment">Statically Typed (vs Dynamically typed)</li>
+                    <li class="fragment">Fast Serialization</li>
+                    <li class="fragment">Versioning</li>
+                </ul>
+                <aside class="notes">
+                    <ul>
+                        <li>In contrary to JSON, that is a textual format, protobuf is binary format</li>
+                        <li>It is very small, 3 to 10 times smaller than JSON and XML.</li>
+                        <li>Static typing makes it harder to do wrong.</li>
+                        <li>Because it is statically typed, it is 20 - 100 times faster to parse.</li>
+                        <li>Versioning with field numbering. Rename/add/remove fields while remaining backward compatible</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h2>Message</h2>
+                <pre><code class="hljs" data-trim contenteditable>
+							message SomeRequestObject {
+								int32 x = 1;
+								int32 ys = 2;
+								string label = 3;
+							}
+						</code></pre>
+                <aside class="notes">
+                    <ul>
+                        <li>A protobuf definition is stored in a file with the .proto extension.</li>
+                        <li>This is an example of a message definition.</li>
+                        <li>A message is an object that will be serialized into a binary format on the wire.</li>
+                        <li>The numbers are not assignments but rather for versioning. Each field has a unique field
+                            number.
+                        </li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h2>Generated Message Object</h2>
+                <pre><code class="hljs" data-trim contenteditable>
+							SomeResponseObject.newBuilder()
+							  .setSomeString("Hello world!")
+							  .setSomeInt(42)
+							  .setSomeBoolean(true)
+							  …
+							  .build();
+							# Returns immutable message object
+						</code></pre>
+                <aside class="notes">
+                    <ul>
+                        <li>This is how the generated object will look like in Java.</li>
+                        <li>It provides a factory-style object creation, using builders.</li>
+                        <li>The object returned by the builder is immutable.</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h2>Service</h2>
+                <pre><code class="hljs" data-trim contenteditable>
+							service SomeService {
+								rpc someUnaryMethod(SomeRequestObject)
+								  returns (SomeResponseObject);
+
+								rpc someServerStreamingMethod(SomeRequestObject)
+								  returns (stream SomeResponseObject);
+
+								rpc someBiStreamingMethod(stream SomeRequestObject)
+								  returns (stream SomeResponseObject);
+							}
+						</code></pre>
+                <aside class="notes">
+                    <ul>
+                        <li>In the proto file, the services are also defined.</li>
+                        <li>The protobuf compiler, protoc, will generate</li>
+                        <li>
+                            <ul>
+                                <li>Service sceletons that can be extended with server side implementations of the RPCs</li>
+                                <li>Client stubs that can be used to communicate with the servers.</li>
+                            </ul>
+                        </li>
+                        <li>Protobuf is language neutral, meaning that sceletons and stubs be generated for all
+                            languages from the same protobuf definitions.
+                        </li>
+                        <li>
+                            <ul>
+                                <li>Java</li>
+                                <li>Python</li>
+                                <li>Go</li>
+                                <li>C++ / C# / Objective C</li>
+                                <li>Ruby</li>
+                                <li>Node.js</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </aside>
+            </section>
+        </section>
+
+        <section>
+            <h2>gRPC</h2>
+            <q cite="http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">
+                &ldquo;
+                A modern, bandwidth and CPU efficient, low latency way to create massively distributed realtime systems
+                that span data centers.
+                &rdquo;
+            </q>
+            <aside class="notes">
+                <ul>
+                    <li>gRPC is a recursive anchronym, the G stands for gRPC and RPC for Remote Procedural Call
+                    <li>It is a framework on top of HTTP2.
+                    <li>Provides a easy way to use HTTP2:
+                        <ul>
+                            <li>Header compression using the Metadata feature,
+                            <li>Bidirectional streaming using protobufs service definitions
+                            <li>Binary format using protobufs message definitions
+                            <li>Multiplexing using a gRPC concept called Channels
+                            <li>HTTP errorcodes, using GrpcErrors
+                        </ul>
+                    <li>In addition it provides:
+                        <ul>
+                            <li>client side Load Balancing
+                            <li>timeout operations using the Deadline feature, lets us cancel unnecessary CPU
+                                calculations. Very useful in Realtime systems.
+                            <li>Distributed state, with the Context feature.
+                        </ul>
+                </ul>
+            </aside>
+        </section>
+
+        <section>
+            <section>
+                <h2>Service</h2>
+                <p>The Server-Side</p>
+            </section>
+            <section>
+                <h2>Example</h2>
+                <pre><code class="hljs" data-trim data-noescape>
+							public class SomeService extends SomeServiceImplBase {
+							  @Override
+							  public void someServerStreamingMethod(
+								  final SomeRequestObject request,
+								  final StreamObserver responseObserver) {
+							    // Stream messages to the client
+							    while(someCondition) {
+							      responseObserver.onNext(responseObject);
+							    }
+							    // Close the stream
+							    responseObserver.onCompleted();
+							  }
+							}
+						</code></pre>
+                <aside class="notes">
+                    Implement the service by extending the generated base class.
+                </aside>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>Stub</h2>
+                <p>The Client-Side</p>
+            </section>
+            <section>
+                <h2>Example</h2>
+                <pre><code class="hljs" data-trim contenteditable>
+							SomeServiceFutureStub stub = SomeServiceGrpc
+								.newFutureStub(channel);
+							ListenableFuture futureResponse = stub
+								.someUnaryMethod(someGeneratedRequestObject);
+						</code></pre>
+
+                <pre><code class="hljs" data-trim contenteditable>
+						SomeServiceBlockingStub stub = SomeServiceGrpc
+							.newBlockingStub(channel);
+						Iterator responseStream = stub
+							.someServerStreamMethod(someGeneratedRequestObject);
+						</code></pre>
+                <aside class="notes">
+                    <ul>
+                        <li>Stubs converts parameters passed between client and server</li>
+                        <li>They can be generated for each language and used directly.</li>
+                        <li>There are three types of stubs: ordinary, future and blocking stubs.</li>
+                        <li>They may or may not be available, depending on the type of rpc.</li>
+                        <li>Blocking stubs and future stubs are convinient classes for unary and server side streaming
+                            RPC's
+                        </li>
+                    </ul>
+                </aside>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>Channel</h2>
+                <p>The Transport</p>
+                <aside class="notes">
+                    <ul>
+                        <li>A channel is a connection to a gRPC server</li>
+                        <li>Multiple stubs and multiple services can share one channel</li>
+                        <li>A channel has state, like idle and connected and a set of configurations, like encryptio and
+                            security/TLS.
+                        </li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h2>Example</h2>
+                <pre><code class="hljs" data-trim contenteditable>
+							Channel channel = ManagedChannelBuilder
+								.forAddress("localhost", 8080)
+								.usePlaintext(true)
+								.build();
+						</code></pre>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>Interceptor</h2>
+                <p>Call Modification</p>
+                <aside class="notes">
+                    <ul>
+                        <li>An interceptor is a mechanism that can monitor, rewrite, and retry calls.</li>
+                        <li>An interceptor can either intercept a call on the client side or on the server side.</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h2>Example</h2>
+                <pre><code class="hljs" data-trim contenteditable>
+							public class SomeInterceptor extends ServerInterceptor {
+								@Override
+								public ServerCall.Listener interceptCall(
+										ServerCall call,
+										Metadata headersFromClient,
+										ServerCallHandler next) {
+									// Some interception logic here:
+									// I.e. monitor, rewrite, or retry calls
+								}
+							}
+						</code></pre>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>Context</h2>
+                <p>Shared State</p>
+                <aside class="notes">
+                    <ul>
+                        <li>Propagate scoped values between API boundaries and threads.</li>
+                        <li>Used for Shared state like Tracing information, authorization</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h2>Example</h2>
+                <pre><code class="hljs" data-trim contenteditable>
+								public static final Context.Key REQUEST_ID =
+									Context.key("REQUEST_ID");
+						</code></pre>
+                <pre><code class="hljs" data-trim contenteditable>
+							Context context = Context.current()
+							   .withValue(ApiUtil.REQUEST_ID, requestId);
+							Context previous = context.attach();
+							try {
+							   // do stuff inside context…
+							} finally {
+							   context.detach(previous);
+							}
+						</code></pre>
+                <pre><code class="hljs" data-trim contenteditable>
+							} catch (IOExeption e)
+							   String requestId = ApiUtil.REQUEST_ID.get();
+							   LOG.error("Request id: " + requestId, e);
+							}
+						</code></pre>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h2>Metadata</h2>
+                <p>Headers and Trailers</p>
+                <aside class="notes">
+                    <p>RPC Headers and Trailers.</p>
+                    <ul>
+                        <li>Propagate context</li>
+                        <li>Content negotiation</li>
+                        <li>Authentication</li>
+                        <li>Tracing information</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h2>Example: Receiving CPU time</h2>
+                <pre><code class="hljs" data-trim contenteditable>
+								AtomicReference< Metadata > trailersCapturer
+								  = new AtomicReference<>();
+
+								SomeServiceBlockingStub stub = MetadataUtils
+								  .captureMetadata(stub, headersCapturer, trailersCapturer);
+
+								ExecuteResponse response
+								  = stub.execute(request).get();
+
+								String cpuUsage = trailersCapturer.get()
+								  .get(MetadataKeys.KEY_CPU_TIME);
+						</code></pre>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h2>Deadline</h2>
+                <p>Replaces Timeouts</p>
+                <aside class="notes">
+                    <ul>
+                        <li>Timestamp for cancelling the RPC, automatically distributed via Context.</li>
+                        <li>Reduce computation overhead</li>
+                        <li>Cancel improper useage by customers</li>
+                        <li>Very useful in real-time systems</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h2>Example: Cancelling loop</h2>
+                <pre><code class="hljs" data-trim contenteditable>
+								// client side
+								ExecuteResponse response = stub
+						    .withDeadline(Deadline.after(5, TimeUnit.SECONDS))
+						    .execute(request)
+						    .get();
+						</code></pre>
+                <pre><code class="hljs" data-trim contenteditable>
+							// server side
+							try {
+							  while (!context.isCancelled()) {
+							    // do work
+							  }
+							} finally {
+							  context.detach(previous);
+							}
+						</code></pre>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h2>gRPC Load Balancing</h2>
+                <p>Client-Side LB</p>
+                <aside class="notes">
+                    <p>gRPC provides client side Load balancing.</p>
+                </aside>
+            </section>
+            <section>
+                <img src="lb-arch.png">
+                <aside class="notes">
+                    The architecture of gRPC load balancing.
+                </aside>
+            </section>
+            <section>
+                <h2>Example</h2>
+                <pre><code class="hljs" data-trim contenteditable>
+							channel.loadBalancerFactory(
+							  RoundRobinLoadBalancerFactory.getInstance()
+							);
+						</code></pre>
+                <aside class="notes">
+                    <p> A LoadBalancerFactory can be attached to a channel, to specify the load balancing strategy, this
+                        way:<
+                </aside>
+            </section>
+        </section>
+
+        <section>
+            <h2>Upcoming features</h2>
+            <ul>
+                <li>Retries</li>
+                <li>Distributed tracing (Census)</li>
+            </ul>
+            <aside class="notes">
+                <ul>
+                    <li>Some rumours of integrated tracing support in gRPC</li>
+                    <li>Library that provides interceptors for ZipKin</li>
+                </ul>
+            </aside>
+        </section>
+
+        <section>
+            <section>
+                <h2>gRPC CLI</h2>
+                <aside class="notes">
+                    <ul>
+                        <li>You cannot use curl, as with JSON/HTTP</li>
+                        <li>gRPC Provides a Command Line Interface</li>
+                        <li>It uses Reflection provide documentation and dynamically create stubs</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h2>Add reflection service</h2>
+                <pre><code class="hljs" data-trim data-noescape>
+							Server server = ServerBuilder
+								.forPort(8080)
+								.addService(ProtoReflectionService.newInstance())
+								.addService(new SomeService())
+								.build();
+						</code></pre>
+            </section>
+            <section>
+                <h2>Use the CLI</h2>
+                <pre><code class="hljs" data-trim contenteditable>
+							$ grpc call localhost:8080 test.SomeService.Greet \
+							    "name: 'andy', text: 'Hello server!'"
+							connecting to localhost:8080
+							name: "Server"
+							text: "Hello andy"
+
+							Rpc succeeded with OK status
+						</code></pre>
+            </section>
+            <section>
+                <h2>List Services and RPC's</h2>
+                <pre><code class="hljs" data-trim contenteditable>
+							$ grpc ls localhost:8080 no.philipp.ExampleService
+									unaryMethod
+									serverStreamMethod
+									clientStreamMethod
+									bidirectionalMethod
+						</code></pre>
+            </section>
+        </section>
+
+        <section
+                data-background="http://www.youngausskeptics.com/wp/wp-content/uploads/2013/02/LordKelvin-copy-560x261.jpg">
+            <blockquote cite="https://en.wikiquote.org/wiki/William_Thomson">
+                &ldquo;When you can measure what you are speaking about, and express it in numbers, you know something
+                about it;
+                but when you cannot measure it, when you cannot express it in numbers,
+                your knowledge is of a meagre and unsatisfactory kind&rdquo;
+            </blockquote>
+            Lord Kelvin
+        </section>
+
+        <section>
+            <section>
+                <h2>Benchmark results</h2>
+            </section>
+
+            <section>
+                <h2>etcd</h2>
+                <p>A distributed, consistent key-value store</p>
+                <aside class="notes">
+                    <ul>
+                        <li>etcd - a distributed, consistent key-value store</li>
+                        <li>Think distributed linux /etc folder.</li>
+                        <li>Can be compared to Consul, Zookeeper</li>
+                        <li>Its used in CoreOS, Kubernetes.</li>
+                        <li>High demands for low latency, to have consistent data replication.</li>
+                        <li>High demands memory/CPU usage matters, it is a supporting service and shold have a minimal
+                            memory and CPU footprint.
+                        </li>
+                        <li>In 2015 they migrated from JSON/HTTP1 to gRPC.</li>
+                    </ul>
+                </aside>
+            </section>
+
+            <section>
+                <h2>CPU Time</h2>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>RPC</th>
+                        <th>requests</th>
+                        <th>clients</th>
+                        <th>time</th>
+                        <th align="center">time/request</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><code>JSON</code></td>
+                        <td>300,000</td>
+                        <td>1</td>
+                        <td>8m7.270s</td>
+                        <td align="center">1.624ms</td>
+                    </tr>
+                    <tr>
+                        <td>gRPC</td>
+                        <td>300,000</td>
+                        <td>1</td>
+                        <td>36.715s</td>
+                        <td align="center">122.383µs</td>
+                    </tr>
+                    <tr>
+                        <td>gRPC</td>
+                        <td>300,000</td>
+                        <td>100</td>
+                        <td>7.167s</td>
+                        <td align="center">23.892µs</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <aside class="notes">
+                    <ul>
+                        <li>JSON with one client over 8 minutes</li>
+                        <li>gRPC with one client orders of magnitude faster, with 37 seconds</li>
+                        <li>gRPC with 100 clients at right above 7 seconds</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h2>Memory Usage</h2>
+                <h5>Single Client</h5>
+                <table>
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th><code>JSON</code></th>
+                        <th>gRPC</th>
+                        <th align="center">delta</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Time</td>
+                        <td>487271046903ns</td>
+                        <td>36716116701ns</td>
+                        <td align="center">-92.46%</td>
+                    </tr>
+                    <tr>
+                        <td>Allocations</td>
+                        <td>32747687</td>
+                        <td>25221256</td>
+                        <td align="center">-22.98%</td>
+                    </tr>
+                    <tr>
+                        <td>Size</td>
+                        <td>3182814152B</td>
+                        <td>1795122672B</td>
+                        <td align="center">-43.60%</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <aside class="notes">
+                    <ul>
+                        <li>92% better read/write time</li>
+                        <li>23% less allocation</li>
+                        <li>43% less memory usage</li>
+                    </ul>
+                </aside>
+            </section>
+
+            <section>
+                <h2>Memory Usage</h2>
+                <h5>Multiple Clients</h5>
+                <table>
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th><code>JSON</code></th>
+                        <th>gRPC with 100 clients</th>
+                        <th align="center">delta</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Time</td>
+                        <td>487271046903ns</td>
+                        <td>7168591678ns</td>
+                        <td align="center">-98.53%</td>
+                    </tr>
+                    <tr>
+                        <td>Allocations</td>
+                        <td>32747687</td>
+                        <td>25230286</td>
+                        <td align="center">-22.96%</td>
+                    </tr>
+                    <tr>
+                        <td>Size</td>
+                        <td>3182814152B</td>
+                        <td>1795831944B</td>
+                        <td align="center">-43.58%</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <aside class="notes">
+                    <ul>
+                        <li>98% better read/write time, even better</li>
+                        <li>Same difference in allocation and memory usage</li>
+                    </ul>
+                </aside>
+            </section>
+
+            <section>
+                <h2>Memory Usage </h2>
+                <h5>Single vs Multiple Clients</h5>
+                <table>
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th>gRPC</th>
+                        <th>gRPC with 100 clients</th>
+                        <th align="center">delta</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Time</td>
+                        <td>36716116701ns</td>
+                        <td>7168591678ns</td>
+                        <td align="center">-80.48%</td>
+                    </tr>
+                    <tr>
+                        <td>Allocations</td>
+                        <td>25221256</td>
+                        <td>25230286</td>
+                        <td align="center">+0.04%</td>
+                    </tr>
+                    <tr>
+                        <td>Size</td>
+                        <td>1795122672B</td>
+                        <td>1795831944B</td>
+                        <td align="center">+0.04%</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <aside class="notes">
+                    <ul>
+                        <li>Compare gRPC with and without multiplexing</li>
+                        <li>-80% reduced time</li>
+                        <li>Slightly increased allocation and memory usage</li>
+                    </ul>
+                </aside>
+            </section>
+        </section>
+        <section>
+            <h2>Questions?</h2>
+        </section>
+        <section data-background="http://68.media.tumblr.com/tumblr_mavm401MaM1qg6rkio1_500.gif">
+        </section>
+    </div>
+</div>
+
+<script src="reveal/lib/js/head.min.js"></script>
+<script src="reveal/js/reveal.js"></script>
+
+<script>
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: false,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'convex', // none/fade/slide/convex/concave/zoom
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'reveal/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'reveal/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'reveal/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'reveal/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'reveal/plugin/zoom-js/zoom.js', async: true },
+					{ src: 'reveal/plugin/notes/notes.js', async: true }
+				]
+			});
+</script>
+
+</body>
+</html>

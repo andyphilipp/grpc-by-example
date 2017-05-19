@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module relativePaths="true" type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output/>
+    <orderEntry type="inheritedJdk"/>
+    <content url="file://$MODULE_DIR$/">
+      <sourceFolder url="file://$MODULE_DIR$/src/main/resources" isTestSource="false"/>
+      <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false"/>
+      <sourceFolder url="file://$MODULE_DIR$/gen/main/java" isTestSource="false"/>
+      <sourceFolder url="file://$MODULE_DIR$/src/test/resources" isTestSource="true"/>
+      <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true"/>
+      <excludeFolder url="file://$MODULE_DIR$/build"/>
+      <excludeFolder url="file://$MODULE_DIR$/.gradle"/>
+    </content>
+    <orderEntry type="sourceFolder" forTests="false"/>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar:///Users/andyphilipp/.gradle/caches/modules-2/files-2.1/io.grpc/grpc-netty/1.2.0/e2682d2dc052898f87433e7a6d03d104ef98df74/grpc-netty-1.2.0.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES>
+          <root url="jar:///Users/andyphilipp/.gradle/caches/modules-2/files-2.1/io.grpc/grpc-netty/1.2.0/c842c88306b5bb237f41800bfcaa3cb883b79665/grpc-netty-1.2.0-sources.jar!/"/>
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar:///Users/andyphilipp/.gradle/caches/modules-2/files-2.1/io.grpc/grpc-protobuf/1.2.0/2676852d2dbd20155d9b1a940a456eae5b7445f0/grpc-protobuf-1.2.0.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES>
+          <root url="jar:///Users/andyphilipp/.gradle/caches/modules-2/files-2.1/io.grpc/grpc-protobuf/1.2.0/45eeb6838425ac067ef3377af42e67ace57cdf38/grpc-protobuf-1.2.0-sources.jar!/"/>
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar:///Users/andyphilipp/.gradle/caches/modules-2/files-2.1/io.grpc/grpc-stub/1.2.0/964dda53b3085bfd17c7aaf51495f9efc8bda36c/grpc-stub-1.2.0.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES>
+          <root url="jar:///Users/andyphilipp/.gradle/caches/modules-2/files-2.1/io.grpc/grpc-stub/1.2.0/31f3bf380f962b3affc1f258ac98fd4d1e39db0/grpc-stub-1.2.0-sources.jar!/"/>
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar:///Users/andyphilipp/.gradle/caches/modules-2/files-2.1/io.grpc/grpc-core/1.2.0/f12a213e2b59a0615df2cc9bed35dc15fd2fee37/grpc-core-1.2.0.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES>
+          <root url="jar:///Users/andyphilipp/.gradle/caches/modules-2/files-2.1/io.grpc/grpc-core/1.2.0/1ec452e5a0513a83b05db8874c79e641aaf470a6/grpc-core-1.2.0-sources.jar!/"/>
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar:///Users/andyphilipp/.gradle/caches/modules-2/files-2.1/io.netty/netty-codec-http2/4.1.8.Final/105a99ee5767463370ccc3d2e16800bd99f5648e/netty-codec-http2-4.1.8.Final.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES>
+          <root url="jar:///Users/andyphilipp/.gradle/caches/modules-2/files-2.1/io.netty/netty-codec-http2/4.1.8.Final/533aaa950d8b21fce553180e268c538504acca0a/netty-codec-http2-4.1.8.Final-sources.jar!/"/>
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar:///Users/andyphilipp/.gradle/caches/modules-2/files-2.1/io.netty/netty-handler-proxy/4.1.8.Final/c4d22e8b9071a0ea8d75766d869496c32648a758/netty-handler-proxy-4.1.8.Final.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES>
+          <root url="jar:///Users/andyphilipp/.gradle/caches/modules-2/files-2.1/io.netty/netty-handler-proxy/4.1.8.Final/e69d98b6b8236d2e3430522ab059e99ae2fdb038/netty-handler-proxy-4.1.8.Final-sources.jar!/"/>
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar:///Users/andyphilipp/.gradle/caches/modules-2/files-2.1/com.google.protobuf/protobuf-java/3.2.0/62ccf171a106ff6791507f2d5364c275f9a3131d/protobuf-java-3.2.0.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES>
+          <root url="jar:///Users/andyphilipp/.gradle/caches/modules-2/files-2.1/com.google.protobuf/protobuf-java/3.2.0/e63f26895ec578b4616c7f499e563ff5f27d9026/protobuf-java-3.2.0-sources.jar!/"/>
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar:///Users/andyphilipp/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/19.0/6ce200f6b23222af3d8abb6b6459e6c44f4bb0e9/guava-19.0.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES>
+          <root url="jar:///Users/andyphilipp/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/19.0/91a4d115400e904f22b03a78deb355e9ea803cd4/guava-19.0-sources.jar!/"/>
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar:///Users/andyphilipp/.gradle/caches/modules-2/files-2.1/com.google.protobuf/protobuf-java-util/3.2.0/25ec9bf5bb119978c514b46f568bed896c5a4a8b/protobuf-java-util-3.2.0.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES>
+          <root url="jar:///Users/andyphilipp/.gradle/caches/modules-2/files-2.1/com.google.protobuf/protobuf-java-util/3.2.0/5a8ee749af0e09c1aef14f4db43d17e337a2915/protobuf-java-util-3.2.0-sources.jar!/"/>
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar:///Users/andyphilipp/.gradle/caches/modules-2/files-2.1/io.grpc/grpc-protobuf-lite/1.2.0/5ecc9a6e23e11694f99fad3e66e12cc3ce3b93b4/grpc-protobuf-lite-1.2.0.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES>
+          <root url="jar:///Users/andyphilipp/.gradle/caches/modules-2/files-2.1/io.grpc/grpc-protobuf-lite/1.2.0/d9d70aa4f55a598107105d3ced50534e2bedfcda/grpc-protobuf-lite-1.2.0-sources.jar!/"/>
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar:///Users/andyphilipp/.gradle/caches/modules-2/files-2.1/com.google.errorprone/error_prone_annotations/2.0.11/3624d81fca4e93c67f43bafc222b06e1b1e3b260/error_prone_annotations-2.0.11.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES>
+          <root url="jar:///Users/andyphilipp/.gradle/caches/modules-2/files-2.1/com.google.errorprone/error_prone_annotations/2.0.11/315971983be7ebb762eb331877e38a58122d565c/error_prone_annotations-2.0.11-sources.jar!/"/>
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar:///Users/andyphilipp/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/3.0.0/5871fb60dc68d67da54a663c3fd636a10a532948/jsr305-3.0.0.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES>
+          <root url="jar:///Users/andyphilipp/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/3.0.0/936f4430478909ed7b138d42f9ad73c919a87b26/jsr305-3.0.0-sources.jar!/"/>
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar:///Users/andyphilipp/.gradle/caches/modules-2/files-2.1/io.grpc/grpc-context/1.2.0/1932db544cbb427bc18f902c7ebbb3f7e44991df/grpc-context-1.2.0.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES>
+          <root url="jar:///Users/andyphilipp/.gradle/caches/modules-2/files-2.1/io.grpc/grpc-context/1.2.0/f2e1bcaa9275ae7280abb3df6c73188c971eeb0b/grpc-context-1.2.0-sources.jar!/"/>
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar:///Users/andyphilipp/.gradle/caches/modules-2/files-2.1/com.google.instrumentation/instrumentation-api/0.3.0/a2e145e7a7567c6372738f5c5a6f3ba6407ac354/instrumentation-api-0.3.0.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES>
+          <root url="jar:///Users/andyphilipp/.gradle/caches/modules-2/files-2.1/com.google.instrumentation/instrumentation-api/0.3.0/51b668d9fa43aaec50a6a93a95784ec949b75ff/instrumentation-api-0.3.0-sources.jar!/"/>
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar:///Users/andyphilipp/.gradle/caches/modules-2/files-2.1/io.netty/netty-codec-http/4.1.8.Final/1e88617c4a6c88da7e86fdbbd9494d22a250c879/netty-codec-http-4.1.8.Final.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES>
+          <root url="jar:///Users/andyphilipp/.gradle/caches/modules-2/files-2.1/io.netty/netty-codec-http/4.1.8.Final/dfe7c544221d821c85f0b9ce828111db8719dd2e/netty-codec-http-4.1.8.Final-sources.jar!/"/>
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar:///Users/andyphilipp/.gradle/caches/modules-2/files-2.1/io.netty/netty-handler/4.1.8.Final/db01139bfb11afd009a695eef55b43bbf22c4ef5/netty-handler-4.1.8.Final.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES>
+          <root url="jar:///Users/andyphilipp/.gradle/caches/modules-2/files-2.1/io.netty/netty-handler/4.1.8.Final/86c87918efe581d62ffd6b1ec97a3332f5ad328d/netty-handler-4.1.8.Final-sources.jar!/"/>
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar:///Users/andyphilipp/.gradle/caches/modules-2/files-2.1/io.netty/netty-transport/4.1.8.Final/905b5dadce881c9824b3039c0df36dabbb7b6a07/netty-transport-4.1.8.Final.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES>
+          <root url="jar:///Users/andyphilipp/.gradle/caches/modules-2/files-2.1/io.netty/netty-transport/4.1.8.Final/8dde2e759e6d43d395c353a10384337cd70ec370/netty-transport-4.1.8.Final-sources.jar!/"/>
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar:///Users/andyphilipp/.gradle/caches/modules-2/files-2.1/io.netty/netty-codec-socks/4.1.8.Final/7f7c5f5b154646d7c571f8ca944fb813f71b1d51/netty-codec-socks-4.1.8.Final.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES>
+          <root url="jar:///Users/andyphilipp/.gradle/caches/modules-2/files-2.1/io.netty/netty-codec-socks/4.1.8.Final/8977ad65c8e2370da542cfd5e3426ea3d7c34ae3/netty-codec-socks-4.1.8.Final-sources.jar!/"/>
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar:///Users/andyphilipp/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.7/751f548c85fa49f330cecbb1875893f971b33c4e/gson-2.7.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES>
+          <root url="jar:///Users/andyphilipp/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.7/bbb63ca253b483da8ee53a50374593923e3de2e2/gson-2.7-sources.jar!/"/>
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar:///Users/andyphilipp/.gradle/caches/modules-2/files-2.1/io.netty/netty-codec/4.1.8.Final/1bd0a2d032e5c7fc3f42c1b483d0f4c57eb516a3/netty-codec-4.1.8.Final.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES>
+          <root url="jar:///Users/andyphilipp/.gradle/caches/modules-2/files-2.1/io.netty/netty-codec/4.1.8.Final/59b160860925caf62d471dcec25befb8c5fb9ece/netty-codec-4.1.8.Final-sources.jar!/"/>
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar:///Users/andyphilipp/.gradle/caches/modules-2/files-2.1/io.netty/netty-buffer/4.1.8.Final/43292c2622e340a0d07178c341ca3bdf3d662034/netty-buffer-4.1.8.Final.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES>
+          <root url="jar:///Users/andyphilipp/.gradle/caches/modules-2/files-2.1/io.netty/netty-buffer/4.1.8.Final/1824211b1466e7c128bf3246aa940b81048b0705/netty-buffer-4.1.8.Final-sources.jar!/"/>
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar:///Users/andyphilipp/.gradle/caches/modules-2/files-2.1/io.netty/netty-resolver/4.1.8.Final/2e116cdd5edc01b2305072b1dbbd17c0595dbfef/netty-resolver-4.1.8.Final.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES>
+          <root url="jar:///Users/andyphilipp/.gradle/caches/modules-2/files-2.1/io.netty/netty-resolver/4.1.8.Final/d66ddbbf819dd78942c18186d35b53e48a5bb070/netty-resolver-4.1.8.Final-sources.jar!/"/>
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar:///Users/andyphilipp/.gradle/caches/modules-2/files-2.1/io.netty/netty-common/4.1.8.Final/ee62c80318413d2375d145e51e48d7d35c901324/netty-common-4.1.8.Final.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES>
+          <root url="jar:///Users/andyphilipp/.gradle/caches/modules-2/files-2.1/io.netty/netty-common/4.1.8.Final/2af1bbac4a9f572a26de6709ae8a0c50f95c0d47/netty-common-4.1.8.Final-sources.jar!/"/>
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="TEST">
+      <library>
+        <CLASSES>
+          <root url="jar:///Users/andyphilipp/.gradle/caches/modules-2/files-2.1/junit/junit/4.11/4e031bb61df09069aeb2bffb4019e7a5034a4ee0/junit-4.11.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES>
+          <root url="jar:///Users/andyphilipp/.gradle/caches/modules-2/files-2.1/junit/junit/4.11/28e0ad201304e4a4abf999ca0570b7cffc352c3c/junit-4.11-sources.jar!/"/>
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="TEST">
+      <library>
+        <CLASSES>
+          <root url="jar:///Users/andyphilipp/.gradle/caches/modules-2/files-2.1/org.hamcrest/hamcrest-core/1.3/42a25dc3219429f0e5d060061f71acb49bf010a0/hamcrest-core-1.3.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES>
+          <root url="jar:///Users/andyphilipp/.gradle/caches/modules-2/files-2.1/org.hamcrest/hamcrest-core/1.3/1dc37250fbc78e23a65a67fbbaf71d2e9cbc3c0b/hamcrest-core-1.3-sources.jar!/"/>
+        </SOURCES>
+      </library>
+    </orderEntry>
+  </component>
+  <component name="ModuleRootManager"/>
+</module>

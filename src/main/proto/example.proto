@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package no.philipp;
+
+option java_package = "no.philipp.proto";
+
+message ExampleMessage {
+    string text = 1;
+    int32 number = 2;
+}
+
+service ExampleService {
+    rpc unaryMethod(ExampleMessage) returns (ExampleMessage);
+    rpc serverStreamMethod(ExampleMessage) returns (stream ExampleMessage);
+    rpc clientStreamMethod(stream ExampleMessage) returns (ExampleMessage);
+    rpc bidirectionalMethod(stream ExampleMessage) returns (stream ExampleMessage);
+}
